@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Isaac Dobie | Candidate for B.S. in Mechanical Engineering at MIT</title>
+  <meta name="description" content="Mechanical engineering portfolio — projects, experience, and contact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff; --fg:#0f172a; --muted:#64748b; --card:#f8fafc; --accent:#0ea5e9; --hair:#e2e8f0;
+      --shadow: 0 10px 25px rgba(2,6,23,0.08);
+    }
+    [data-theme="dark"]{
+      --bg:#0b1020; --fg:#e5e7eb; --muted:#9aa3b2; --card:#11162a; --accent:#60a5fa; --hair:#1f2a44;
+      --shadow: 0 10px 25px rgba(0,0,0,0.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;border-radius:12px}
+
+    /* --- Layout --- */
+    .container{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
+    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);z-index:50;border-bottom:1px solid var(--hair);
+      background: var(--bg);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;max-width:1100px;margin:0 auto}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.2px}
+    .brand-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(14,165,233,0.15)}
+    .navlinks{display:flex;gap:18px;align-items:center}
+    .navlinks a{font-size:.95rem;color:var(--muted)}
+    .navlinks a:hover{color:var(--fg)}
+    .menu-btn{display:none}
+    .theme-toggle{border:1px solid var(--hair);padding:6px 10px;border-radius:10px;color:var(--muted)}
+
+    /* --- Hero --- */
+    .hero {
+            display:grid;
+            grid-template-columns:1.1fr 0.9fr;
+            gap:32px;
+            align-items:center;
+            padding:48px 0;
+            position: relative;
+            background: url("comp3.jpg") center/cover no-repeat;
+            border-radius: 12px; /* optional, makes it feel like a card */
+            min-height: 500px;   /* make the block longer/taller */
+            }
+
+    .hero::before {
+            content:"";
+            position:absolute;
+            inset:0;
+            background:rgba(255,255,255,0.75); /* light overlay so text stays readable */
+            backdrop-filter: blur(.5px);
+            }
+
+    .hero > * {
+            position:relative;
+            z-index:1;
+            }
+
+    .hero > div:first-child {
+            margin-left: 20px;   /* pushes your text to the right */
+            margin-top: -170px;
+            }
+
+        /* Dark theme version of the overlay */
+    [data-theme="dark"] .hero::before {
+        background: rgba(0,0,0,0.55); /* darker so white text stands out */
+        }
+
+    /* .hero{display:grid;
+          grid-template-columns:1.1fr 0.9fr;
+          gap:32px;
+          align-items:center;
+          padding:48px 0} */
+
+    .title{font-size:clamp(28px, 4vw, 44px);line-height:1.12;margin:0 0 10px}
+    .subtitle{font-size:clamp(16px, 2vw, 18px);color:var(--muted);margin:0 0 26px}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;font-weight:600;border:1px solid var(--hair);box-shadow:var(--shadow)}
+    .btn.primary{background:var(--fg);color:var(--bg);border-color:transparent}
+    .btn.ghost{background:var(--bg)}
+    .hero-card{background:var(--card);border:1px solid var(--hair);padding:18px;border-radius:16px;box-shadow:var(--shadow)}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .kpi{padding:14px;border-radius:12px;background:var(--bg);border:1px solid var(--hair)}
+    .kpi h4{margin:0;font-size:14px;color:var(--muted);font-weight:500}
+    .kpi p{margin:2px 0 0;font-weight:700}
+
+    /* --- Sections --- */
+    section{padding:42px 0;border-top:1px solid var(--hair)}
+    .section-h{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px}
+    .section-h h2{margin:0;font-size:22px}
+    .section-h p{margin:0;color:var(--muted);font-size:14px}
+
+    /* --- Projects Grid --- */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--card);border:1px solid var(--hair);padding:14px;border-radius:16px;transition:transform .2s ease, box-shadow .2s ease;cursor:pointer}
+    .card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;border:1px solid var(--hair);color:var(--muted);font-size:12px}
+    .card h3{margin:10px 0 8px;font-size:18px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+    .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--muted);font-size:12px}
+
+    /* --- Carousel (in-card) --- */
+    .carousel{position:relative;overflow:hidden;border-radius:20px;aspect-ratio:16/10;background:var(--hair)}
+    .slide{display:none;width:100%;height:100%}
+    .slide.active{display:block}
+    .slide img{width:100%;height:100%;object-fit:cover;display:block}
+    .slide .play-badge{position:absolute;inset:auto 10px 10px auto;background:var(--bg);border:1px solid var(--hair);padding:6px 10px;border-radius:999px;font-size:12px}
+    .controls{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 6px;pointer-events:none}
+    .controls button{pointer-events:auto;border:1px solid var(--hair);background:rgba(0,0,0,.45);color:#fff;border-radius:999px;width:34px;height:34px;display:grid;place-items:center}
+    .dots{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);display:flex;gap:6px;background:rgba(0,0,0,.35);padding:4px 8px;border-radius:999px}
+    .dots button{width:7px;height:7px;border-radius:50%;border:none;background:#cbd5e1;opacity:.7}
+    .dots button.active{opacity:1;background:#fff}
+
+    /* --- Lightbox --- */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;padding:24px;z-index:999}
+    .modal.open{display:flex}
+    .modal-content{max-width:min(1100px,95vw);max-height:85vh;background:var(--bg);border-radius:16px;overflow:hidden;border:1px solid var(--hair);box-shadow:var(--shadow)}
+    .modal-content video,.modal-content img{display:block;max-width:100%;max-height:85vh}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--hair);background:var(--card)}
+    .modal-header h4{margin:0;font-size:14px;color:var(--muted)}
+    .close-btn{border:1px solid var(--hair);background:transparent;border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--muted)}
+
+    /* --- Resume --- */
+    .resume{display:grid;
+            grid-template-columns:1fr;
+            gap:16px;
+            position:relative;
+            padding-left: 22px;}
+
+
+    .resume::before{
+        content:"";
+        position:absolute;
+        left:8px; top:0; bottom:0;
+        width:2px; background:var(--hair);
+        border-radius:2px;
+        }
+
+    .resume .item{
+                position: relative;
+                padding:14px 16px;
+                border:1px solid var(--hair);
+                border-radius:14px;
+                background:var(--card);
+                box-shadow:var(--shadow);}
+
+    .resume .item::before{
+                content:"";
+                position:absolute;
+                left:-18px; top:18px;
+                width:10px; height:10px;
+                border-radius:50%;
+                background:var(--accent);
+                box-shadow:0 0 0 3px color-mix(in oklab, var(--accent), transparent 75%);
+                }
+
+    .resume h3{margin:.2rem 0 .15rem; font-size:16px}
+    .pill{font-size:12px;color:var(--muted); margin-bottom:6px; display:block }
+
+    /* --- Footer --- */
+    footer{border-top:1px solid var(--hair);padding:24px 20px;color:var(--muted)}
+
+    /* --- Responsive --- */
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr;}
+      .hero-grid{grid-template-columns:1fr 1fr}
+      .grid{grid-template-columns:1fr 1fr}
+      .resume{grid-template-columns:1fr}
+    }
+    @media (max-width: 560px){
+      .navlinks{display:none}
+      .menu-btn{display:inline-flex;border:1px solid var(--hair);padding:6px 10px;border-radius:10px;color:var(--muted)}
+      .grid{grid-template-columns:1fr}
+      .hero-grid{grid-template-columns:1fr}
+    }
+
+    .carousel {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        height: 320px;   /* increase this value as needed */
+        width: 240px;
+    }
+
+    .carousel img,
+    .carousel video {
+        height: 100%;
+        width: 100%;
+        object-fit: contain; /* shows whole image/video without cutting */
+    }
+
+
+    .exp-header{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        margin-bottom:6px;
+        /* font-size: 50px; */
+        }
+
+    .exp-logo{
+        width:150px;
+        height:80px;
+        border-radius:8px;        /* optional: rounded corners */
+        object-fit:contain;       /* scale logo properly */
+        border:1px solid var(--hair);
+        /* background:var(--bg); */
+        background:#fff;
+        padding:4px;              /* gives breathing space inside the box */
+        }
+
+    .brand {
+        display:flex;
+        align-items:center;
+        gap:14px;
+        font-weight:700;
+        }
+
+    .brand-name {
+        font-size:1.6rem;      /* make name much larger */
+        letter-spacing:.3px;
+        }
+
+    .brand-logo {
+        height:100px;           /* adjust as needed */
+        width:auto;
+        display:block;
+        }
+
+
+  </style>
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header>
+    <nav class="nav">
+        <a class="brand" href="#top" aria-label="Home">
+            <!-- <span class="brand-dot" aria-hidden="true"></span> -->
+            <span class="brand-name">Isaac Dobie</span> 
+            <img src="mit_meche_logo.png" alt="MIT Mechanical Engineering Logo" class="brand-logo">
+            <img src="mit_bball_logo.png" alt="MIT Basketball Logo" class="brand-logo">
+        </a>
+          
+      <div class="navlinks" role="navigation" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <button id="themeBtn" class="theme-toggle" aria-label="Toggle theme">Toggle</button>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">Menu</button>
+    </nav>
+  </header>
+
+  <main id="top" class="container">
+    <!-- Hero -->
+    <section class="hero" aria-label="Intro">
+      <div>
+        <h1 class="title">Isaac Dobie: Mechanical Engineer Portfolio</h1>
+        <p class="subtitle">A collection of my recent projects & experiences.</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">View Projects</a>
+          <a class="btn ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <!-- <div class="hero-card">
+        <div class="hero-grid">
+          <div class="kpi"><h4>Fabrication</h4><p>CNC • FDM/SLA • Laser • Waterjet</p></div>
+          <div class="kpi"><h4>CAD/CAE</h4><p>Fusion 360 • SolidWorks • ANSYS</p></div>
+          <div class="kpi"><h4>Controls</h4><p>Arduino • PID • Sensors</p></div>
+          <div class="kpi"><h4>Docs</h4><p>DFM/DFA • Drawings • BOM</p></div>
+        </div>
+      </div> -->
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="section-h">
+        <h2>Projects</h2>
+        <!-- <p>Concise one‑paragraph summaries, manufacturing notes, and metrics.</p> -->
+      </div>
+      <div class="grid" id="projectGrid"></div>
+    </section>
+
+    <!-- Experience / Resume -->
+    <section id="experience">
+      <div class="section-h">
+        <h2>Experience</h2>
+        <!-- <p>Reverse‑chronological — highlights only.</p> -->
+      </div>
+      <!--  -->
+      <div class="resume">
+        <!--  -->
+          <div class="item">
+            <div class="exp-header">
+                <img src="as_logo.png" alt="AutoStore logo" class="exp-logo">
+                <div>
+                    <h3>AutoStore · Solution Consulting Intern</h3>
+                    <p class="pill">June 2025 - Aug. 2025</p>
+                </div>
+            </div>
+            <p>· Worked with the AI Solutions team to incorporate machine learning into AutoStore’s data analysis platform. </p>
+            <p>· Built a machine learning model and the corresponding application to predict and optimize robot performance.</p>
+          </div>
+          <!--  -->
+          <div class="item">
+            <div class="exp-header">
+                <img src="mix_logo.png" alt="MIx logo" class="exp-logo">
+                <div>
+                    <h3>MIT Mission Innovation X · Undergraduate Researcher</h3>
+                    <p class="pill">June 2024 - Present</p>
+                </div>
+            </div>
+            <p>· AI researcher working on analysis and evaluation software for flight test education and development.</p>
+            <p>· Presented initial findings as a team to the MIT Office of Innovation and the U.S. Air Force.</p>
+          </div>
+          <div class="item">
+            <div class="exp-header">
+                <img src="quible_logo.png" alt="Quible logo" class="exp-logo">
+                <div>
+                    <h3>Quible & Associates P.C. · Civil Engineer Intern</h3>
+                    <p class="pill">May 2024 - Aug. 2024</p>
+                </div>
+            </div>
+            <p>· Used AutoCAD to design site plans and other client-facing models.</p>
+            <p>· Completed on-site leakage tests and inspection reports.</p>
+          </div>
+          <div class="item">
+            <div class="exp-header">
+                <img src="mit_cee_logo.png" alt="MIT CEE logo" class="exp-logo">
+                <div>
+                    <h3>MIT Civil & Environmental Engineering · Undergraduate Researcher</h3>
+                    <p class="pill">Jan. 2024 - Aug. 2024</p>
+                </div>
+            </div>
+            <p>· Built a dataset of 50k+ demolished buildings in the U.S., and an associated algorithm to match addresses in tax
+                data sets, demolition data, and new construction building permits.
+                </p>
+            <p>· Co-author to a paper in the publishing process: Lifetimes of Demolished Buildings in U.S. and European Cities.</p>
+          </div>
+          <div class="item">
+            <div class="exp-header">
+                <img src="kj_logo.jpg" alt="KJ logo" class="exp-logo">
+                <div>
+                    <h3>KJ construction & Remodeling · Construction Worker</h3>
+                    <p class="pill">Jan. 2019 - Aug. 2023</p>
+                </div>
+            </div>
+            <p>· Developed a wide range of trade skills including: carpentry, demolition, painting, insulation, flooring, repairs, power
+                tool use, and heavy equipment operation.</p>
+            <p>· Trained and mentored my younger brother in the construction industry.
+            </p>
+          </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <!-- <section id="skills">
+      <div class="section-h">
+        <h2>Skills</h2>
+        <p></p>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>CAD/Software</h3><p>SolidWorks, Fusion 360, CATIA (basics), ANSYS, nTopology (intro), FreeCAD</p></div>
+        <div class="card"><h3>Manufacturing</h3><p>2.5‑axis CNC, lathe, sheet metal, laser/waterjet, SLA/FDM/PA12 MJF, metrology</p></div>
+        <div class="card"><h3>EE/Controls</h3><p>Arduino, motor drivers, load cells, instrumentation, PID, simple state machines</p></div>
+      </div>
+    </section> -->
+
+    <!-- About
+    <section id="about">
+      <div class="section-h"><h2>About</h2><p></p></div>
+      <div class="card" style="padding:18px 18px">
+        <p>As a mechanical engineering student and captain of the MIT men's varsity basketball team, I love challenging myself.
+        </p>
+      </div>
+    </section> -->
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="section-h"><h2>Contact</h2><p></p></div>
+      <div class="grid">
+        <div class="card">
+          <h3>Email</h3>
+          <p><a href="mailto:dobie_5@mit.edu">dobie_5@mit.edu</a></p>
+        </div>
+        <div class="card">
+          <h3>Resume</h3>
+          <p><a href="resume.pdf" target="_blank" rel="noopener">Open PDF →</a></p>
+        </div>
+        <div class="card">
+          <h3>GitHub</h3>
+          <p><a href="https://github.com/isaac-dobie" target="_blank" rel="noopener">https://github.com/isaac-dobie</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="modalTitle"></h4>
+          <button id="closeModal" class="close-btn" aria-label="Close">Close</button>
+        </div>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="container" role="contentinfo">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+      <small>© <span id="y"></span> Isaac Dobie</small>
+      <div style="display:flex;gap:10px;align-items:center;color:var(--muted)">
+        <a href="#top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Theme toggle
+      const root = document.documentElement; const btn = document.getElementById('themeBtn');
+      const setTheme = (t)=>{root.setAttribute('data-theme', t); localStorage.setItem('theme', t)};
+      const saved = localStorage.getItem('theme'); if(saved){setTheme(saved)}
+      btn?.addEventListener('click',()=>{setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark')});
+
+      // Menu
+      const m = document.getElementById('menuBtn');
+      m?.addEventListener('click', ()=>{
+        const links = ['#projects','#experience','#skills','#about','#contact'];
+        const pick = prompt('Go to: projects / experience / skills / about / contact');
+        const match = links.find(x=>x.includes((pick||'').toLowerCase())); if(match) location.hash=match;
+      });
+
+      // ---- PROJECTS DATA (multiple images & optional videos per project) ----
+      const projects = [
+        {
+          tag:'Robotics',
+          title:'6‑Axis Robot Arm - Current',
+          summary:'Currently building an originally designed 6-axis desk-sized robotic arm. Designed in SoidWorks, the robotic arm will have a 3D printed body, use Bilda Servos for motors, and have Arduino-Nano controls.',
+          tools:'SolidWorks • 3D Print • Arduino',
+          media:[
+            {type:'image', src:'botarm2.jpg'},
+            {type:'image', src:'6axis_bot_cad.jpg'},
+            // {type:'video', src:'assets/robot/arm_demo.mp4', poster:'assets/robot/cover.jpg'}
+          ],
+          link:'#'
+        },
+        {
+          tag:'Robotics',
+          title:'2.007 Design Competition Robot',
+          summary:'Designed and built a robot for the 2.007 design competition. SolidWorks design + Arduino Nano autonomy. Key scoring component: elevator lift to extend from 16" to >60" to reach a mounted broom. Awarded the ot Air Balloon Awadr for an effective and elegant robot. Placed in the top 8 out of 150+ competitors.',
+          tools:'SolidWorks • CNC • Mill • Lathe • Arduino • Circuits • Hand Tools',
+          media:[
+            {type:'image', src:'007_bot.jpg'},
+            {type:'image', src:'007_cad.jpg'}, 
+            {type:'image', src:'comp4.jpg'}, 
+            {type:'image', src:'comp1.jpg'},
+            // {type:'image', src:'comp2.jpg'},
+            {type:'video', src:'compvid2.mp4', poster:'comp_poster.png'}
+          ],
+          link:'#'
+        },
+        
+        {
+          tag:'Controls',
+          title:'Line‑Following Robot',
+          summary:'Programmed an autonomous line-following robot and built the corresponding circuit.',
+          tools:'Arduino • Circuits',
+          media:[
+            {type:'image', src:'linefol.jpg'},
+            {type:'video', src:'linefolvid (2).mp4', poster:'linefol_frame.png'}
+          ],
+          link:'#'
+        },
+        {
+          tag:'Audio',
+          title:'Passive Speaker',
+          summary:'A passive phone speaker to amplify audio without power. 3D printed audio funnel, wooden base, lasercut sheet metal design.',
+          tools:'Lasercut • Hand Tools',
+          media:[
+            {type:'image', src:'speaker1.jpg'},
+            {type:'image', src:'speaker2.jpg'},
+            {type:'image', src:'speaker3.jpg'},
+          ],
+          link:'#'
+        },
+        {
+          tag:'Robotics',
+          title:'Cargo Unloading Robot',
+          summary:'Floating robot designed to autonomously unload cargo (3D printed barrels) onto a raised platform.',
+          tools:'3D Print • Hand Tools',
+          media:[
+            {type:'video', src:'00a_vid3.mp4', poster:'00A_vid_frame.jpg'},
+            // {type:'image', src:'assets/robot/01.jpg'},
+            {type:'image', src:'00A.jpg'},
+            
+          ],
+          link:'#'
+        },
+        {
+          tag:'Manufacturing',
+          title:'Brushed DC Motor',
+          summary:'Built a handspun brushed DC motor.',
+          tools:'Hand Tools',
+          media:[
+            {type:'image', src:'motor.jpg'},
+            // {type:'image', src:'assets/robot/02.jpg'},
+            // {type:'video', src:'assets/robot/arm_demo.mp4', poster:'assets/robot/cover.jpg'}
+          ],
+          link:'#'
+        },
+        
+      ];
+
+      const grid = document.getElementById('projectGrid');
+      const placeholder = 'data:image/svg+xml;charset=utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100"><rect width="160" height="100" fill="#e2e8f0"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#64748b" font-family="Inter, Arial" font-size="10">No media</text></svg>`);
+
+      function slidesHTML(media){
+        if(!Array.isArray(media) || media.length===0){
+          return `<div class="slide active"><img src="${placeholder}" alt="No media"></div>`;
+        }
+        return media.map((m, i)=>{
+          if(m.type==='video'){
+            const poster = m.poster || placeholder;
+            return `<div class="slide${i===0?' active':''}" data-kind="video" data-src="${m.src}" data-poster="${poster}">
+                      <img src="${poster}" alt="Video: ${m.src}"><span class="play-badge">Play</span>
+                    </div>`;
+          }
+          return `<div class="slide${i===0?' active':''}" data-kind="image" data-src="${m.src}">
+                    <img loading="lazy" src="${m.src}" alt="Project image ${i+1}">
+                  </div>`;
+        }).join('');
+      }
+
+      function dotsHTML(n){ return `<div class="dots">${Array.from({length:n}).map((_,i)=>`<button data-dot="${i}" aria-label="Go to slide ${i+1}"></button>`).join('')}</div>` }
+
+      function cardHTML(p, idx){
+        const n = (p.media?.length||1);
+        return `
+          <article class="card" data-index="${idx}">
+            <div class="carousel" data-carousel>
+              ${slidesHTML(p.media)}
+              <div class="controls">
+                <button class="prev" aria-label="Previous">‹</button>
+                <button class="next" aria-label="Next">›</button>
+              </div>
+              ${dotsHTML(n)}
+            </div>
+            <span class="chip">${p.tag}</span>
+            <h3>${p.title}</h3>
+            <p>${p.summary}</p>
+            <div class="meta"><span>${p.tools}</span><a href="${p.link}">Details →</a></div>
+          </article>`;
+      }
+
+      function render(){ grid.innerHTML = projects.map(cardHTML).join(''); initCarousels(); }
+
+      function initCarousels(){
+        grid.querySelectorAll('[data-carousel]').forEach((c, cardIdx)=>{
+          const slides = [...c.querySelectorAll('.slide')];
+          const prev = c.querySelector('.prev');
+          const next = c.querySelector('.next');
+          const dots = [...c.querySelectorAll('.dots button')];
+          let i = 0;
+          function show(k){ i = (k+slides.length)%slides.length; slides.forEach((s,idx)=>s.classList.toggle('active', idx===i)); dots.forEach((d,idx)=>d.classList.toggle('active', idx===i)); }
+          prev.addEventListener('click', (e)=>{ e.stopPropagation(); show(i-1); });
+          next.addEventListener('click', (e)=>{ e.stopPropagation(); show(i+1); });
+          dots.forEach((d,di)=> d.addEventListener('click', (e)=>{ e.stopPropagation(); show(di); }));
+          // Click slide -> open lightbox
+          c.addEventListener('click', (e)=>{
+            const slide = e.target.closest('.slide'); if(!slide) return;
+            const p = projects[cardIdx];
+            openLightbox(p.title, slide.dataset.kind, slide.dataset.src, slide.dataset.poster);
+          });
+          show(0);
+        });
+      }
+
+      // Lightbox
+      const modal = document.getElementById('lightbox');
+      const modalBody = document.getElementById('modalBody');
+      const modalTitle = document.getElementById('modalTitle');
+      function openLightbox(title, kind, src, poster){
+        modalTitle.textContent = title;
+        if(kind==='video'){
+          modalBody.innerHTML = `<video src="${src}" controls preload="none" playsinline poster="${poster||''}" style="display:block;max-width:100%"></video>`;
+        } else {
+          const s = src || placeholder; modalBody.innerHTML = `<img src="${s}" alt="${title}">`;
+        }
+        modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+      }
+      document.getElementById('closeModal').addEventListener('click', ()=>{
+        modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); modalBody.innerHTML = '';
+      });
+      modal.addEventListener('click', (e)=>{ if(e.target===modal){ document.getElementById('closeModal').click(); } });
+
+      // Render
+      render();
+
+      // year
+      document.getElementById('y').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>

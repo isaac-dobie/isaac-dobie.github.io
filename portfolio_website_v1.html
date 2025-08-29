@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mechanical Engineering Portfolio</title>
+  <meta name="description" content="Portfolio website for a mechanical engineer: projects, experience, skills, publications, and contact." />
+  <meta property="og:title" content="Mechanical Engineering Portfolio" />
+  <meta property="og:description" content="Selected projects in CAD, FEA, mechatronics, and manufacturing." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <style>
+    /* ===== Design Tokens ===== */
+    :root {
+      --bg: #ffffff;
+      --text: #0f172a;     /* slate-900 */
+      --subtle: #475569;   /* slate-600 */
+      --muted: #94a3b8;    /* slate-400 */
+      --card: #f8fafc;     /* slate-50 */
+      --border: #e2e8f0;   /* slate-200 */
+      --accent: #111827;   /* near-black for minimal look */
+      --accent-2: #2563eb; /* optional blue accent for links/hover */
+      --shadow: 0 10px 20px rgba(0,0,0,.07), 0 2px 6px rgba(0,0,0,.05);
+      --radius: 18px;
+      --maxw: 1080px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0f19;
+        --text: #e5e7eb;
+        --subtle: #cbd5e1;
+        --muted: #94a3b8;
+        --card: #0f172a;
+        --border: #1f2937;
+        --accent: #ffffff;
+        --accent-2: #60a5fa;
+        --shadow: 0 10px 20px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.25);
+      }
+    }
+
+    /* ===== Base ===== */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: var(--bg);
+    }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; border-radius: calc(var(--radius) - 6px); }
+    .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    .shadow { box-shadow: var(--shadow); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); }
+    .muted { color: var(--muted); }
+    .subtle { color: var(--subtle); }
+    .chip { border: 1px solid var(--border); padding: 6px 10px; border-radius: 999px; font-size: 12px; color: var(--subtle); }
+
+    /* ===== Header / Nav ===== */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(1.2) blur(8px);
+      background: color-mix(in oklab, var(--bg) 82%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
+    .brand {
+      font-weight: 700; letter-spacing: .4px; color: var(--text);
+    }
+    .brand small { font-weight: 500; color: var(--muted); margin-left: 8px; }
+    nav ul { list-style: none; display: flex; gap: 18px; margin: 0; padding: 0; }
+    nav a { color: var(--text); opacity: .8; }
+    nav a:hover { opacity: 1; }
+    .menu-btn { display: none; }
+
+    @media (max-width: 780px) {
+      nav ul { display: none; }
+      .menu-btn { display: inline-flex; gap: 6px; align-items: center; border: 1px solid var(--border); padding: 6px 10px; border-radius: 12px; background: var(--card); }
+      .menu-open nav ul { display: flex; flex-direction: column; position: absolute; top: 56px; right: 20px; background: var(--card); padding: 12px; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); }
+    }
+
+    /* ===== Hero ===== */
+    .hero { padding: 72px 0 36px; }
+    .hero .wrap { display: grid; grid-template-columns: 1.3fr .7fr; gap: 28px; align-items: center; }
+    .hero h1 { font-size: clamp(28px, 4vw, 48px); line-height: 1.2; margin: 0 0 10px; }
+    .hero p { margin: 0 0 18px; }
+    .hero .cta { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; border-radius: 12px;
+      padding: 10px 14px; border: 1px solid var(--border); background: var(--text); color: var(--bg);
+    }
+    .btn.secondary { background: var(--card); color: var(--text); }
+    .hero .badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+
+    @media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; } }
+
+    /* ===== Sections ===== */
+    section { padding: 36px 0; }
+    section h2 { font-size: 22px; margin: 0 0 16px; letter-spacing: .3px; }
+    .grid { display: grid; gap: 16px; }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } }
+
+    .proj { overflow: hidden; display: flex; flex-direction: column; }
+    .proj img { aspect-ratio: 16/9; object-fit: cover; }
+    .proj .p { padding: 14px; }
+    .proj h3 { margin: 0 0 6px; font-size: 18px; }
+    .proj .meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+
+    /* ===== Footer ===== */
+    footer { margin-top: 36px; border-top: 1px solid var(--border); padding: 20px 0 40px; color: var(--muted); font-size: 14px; }
+
+    /* ===== Utilities ===== */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .nowrap { white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="container nav">
+      <div class="brand">Isaac Dobie <small class="nowrap">| Candidate for B.S. in Mechanical Engineering at MIT</small></div>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navList">Menu ▾</button>
+      <nav>
+        <ul id="navList" aria-label="Primary navigation">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="container wrap">
+      <div>
+        <h1>Hmm put sum good here<br>— like lowkey.</h1>
+        <p class="subtle">Good intro here</p>
+        <div class="cta">
+          <a class="btn" href="#projects">View Projects</a>
+          <a class="btn secondary" href="c:\Users\23dob\OneDrive - Massachusetts Institute of Technology\Desktop\Resumes\Resume_Isaac_Dobie_8-12-25.pdf" download> 
+            Download Résumé
+          </a>
+        </div>
+        <div class="badge-row">
+          <span class="chip">CAD (SolidWorks, AutoCAD)</span>
+          <!-- <span class="chip">FEA (ANSYS)</span> -->
+          <!-- <span class="chip">Controls &amp; Embedded (Arduino, STM32)</span> -->
+          <span class="chip">Manufacturing (CNC, 3D printing)</span>
+        </div>
+      </div>
+      <div class="card shadow" aria-hidden="true">
+        <img alt="Portfolio cover image: assembly render" loading="lazy" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1600&auto=format&fit=crop" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Projects ===== -->
+  <section id="projects">
+    <div class="container">
+      <h2>Selected Projects</h2>
+      <div class="grid grid-3">
+        <!-- Project Card -->
+        <article class="proj card shadow">
+          <img alt="Voice-coil actuator test rig" loading="lazy" src="https://images.unsplash.com/photo-1581091215367-59ab6e63a9f4?q=80&w=1600&auto=format&fit=crop" />
+          <div class="p">
+            <h3>6-Axis Robotic Arm (current)</h3>
+            <p class="subtle">Designed a VCA system with load-cell feedback; implemented current-mode control with PID (INA219 + MOSFET) achieving ±0.05 N steady-state error.</p>
+            <div class="meta">
+              <span class="chip">Control</span>
+              <span class="chip">Analog &amp; Embedded</span>
+              <span class="chip">Python</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj card shadow">
+          <img alt="CNC machined parts" loading="lazy" src="https://images.unsplash.com/photo-1581094794329-c8112e04b1cd?q=80&w=1600&auto=format&fit=crop" />
+          <div class="p">
+            <h3>2.007 Design Competition Robot</h3>
+            <p class="subtle">Built a reusable fixture to validate ANSYS simulations; reduced setup time by 60% and matched deflection predictions within 6% across loads.</p>
+            <div class="meta">
+              <span class="chip">FEA</span>
+              <span class="chip">DFM</span>
+              <span class="chip">CNC</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj card shadow">
+          <img alt="3D printed prototype" loading="lazy" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1600&auto=format&fit=crop" />
+          <div class="p">
+            <h3>Autonomous Line Following Robot</h3>
+            <p class="subtle">Rapid prototype of a compliant gripper. Iterated 5 designs balancing stiffness and grip force; achieved 1.8× payload at 120 g end-effector mass.</p>
+            <div class="meta">
+              <span class="chip">Mechanisms</span>
+              <span class="chip">Additive</span>
+              <span class="chip">Kinematics</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj card shadow">
+            <img alt="3D printed prototype" loading="lazy" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1600&auto=format&fit=crop" />
+            <div class="p">
+              <h3>Floating Cargo Unloader Robot</h3>
+              <p class="subtle">Rapid prototype of a compliant gripper. Iterated 5 designs balancing stiffness and grip force; achieved 1.8× payload at 120 g end-effector mass.</p>
+              <div class="meta">
+                <span class="chip">Mechanisms</span>
+                <span class="chip">Additive</span>
+                <span class="chip">Kinematics</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="proj card shadow">
+            <img alt="3D printed prototype" loading="lazy" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1600&auto=format&fit=crop" />
+            <div class="p">
+              <h3>DC Brushed Motor</h3>
+              <p class="subtle">Rapid prototype of a compliant gripper. Iterated 5 designs balancing stiffness and grip force; achieved 1.8× payload at 120 g end-effector mass.</p>
+              <div class="meta">
+                <span class="chip">Mechanisms</span>
+                <span class="chip">Additive</span>
+                <span class="chip">Kinematics</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="proj card shadow">
+            <img alt="3D printed prototype" loading="lazy" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1600&auto=format&fit=crop" />
+            <div class="p">
+              <h3>AutoStore Robot Performance Prediction Model</h3>
+              <p class="subtle">Rapid prototype of a compliant gripper. Iterated 5 designs balancing stiffness and grip force; achieved 1.8× payload at 120 g end-effector mass.</p>
+              <div class="meta">
+                <span class="chip">Mechanisms</span>
+                <span class="chip">Additive</span>
+                <span class="chip">Kinematics</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="proj card shadow">
+            <img alt="3D printed prototype" loading="lazy" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1600&auto=format&fit=crop" />
+            <div class="p">
+              <h3>Spotify Stock Pitch & Forecast</h3>
+              <p class="subtle">Rapid prototype of a compliant gripper. Iterated 5 designs balancing stiffness and grip force; achieved 1.8× payload at 120 g end-effector mass.</p>
+              <div class="meta">
+                <span class="chip">Mechanisms</span>
+                <span class="chip">Additive</span>
+                <span class="chip">Kinematics</span>
+              </div>
+            </div>
+          </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Experience & Skills ===== -->
+  <section id="experience">
+    <div class="container split">
+      <div>
+        <h2>Experience</h2>
+        <div class="card shadow" style="padding:14px">
+          <div>
+            <strong>Undergraduate Researcher — Mechatronics Lab</strong>
+            <div class="muted">Jan 2025 – Present</div>
+            <ul>
+              <li>Developing current-mode control for a VCA using shunt sensing and PWM.</li>
+              <li>Designed PCB breakout for INA219 + gate driver; integrated with Arduino.</li>
+              <li>Automated test scripts in Python for step-response characterization.</li>
+            </ul>
+          </div>
+          <hr style="border:none;border-top:1px solid var(--border);margin:12px 0" />
+          <div>
+            <strong>Manufacturing Intern — Precision Shop</strong>
+            <div class="muted">Summer 2024</div>
+            <ul>
+              <li>Programmed CAM toolpaths for 3-axis CNC; reduced cycle time 18%.</li>
+              <li>Tolerance stack-up analysis for aluminum enclosures (±0.05 mm).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="skills">
+        <h2>Skills</h2>
+        <div class="card shadow" style="padding:14px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div>
+              <strong>CAD</strong>
+              <p class="muted">SolidWorks, Fusion 360, Onshape</p>
+            </div>
+            <div>
+              <strong>Analysis</strong>
+              <p class="muted">ANSYS, MATLAB, Python (NumPy)</p>
+            </div>
+            <div>
+              <strong>Controls</strong>
+              <p class="muted">PID, system ID, sensor fusion</p>
+            </div>
+            <div>
+              <strong>Embedded</strong>
+              <p class="muted">Arduino, STM32, SPI/I2C, PWM</p>
+            </div>
+            <div>
+              <strong>Fabrication</strong>
+              <p class="muted">CNC, lathe, waterjet, FDM/SLA</p>
+            </div>
+            <div>
+              <strong>Docs</strong>
+              <p class="muted">Drawings, GD&amp;T, BOM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Publications ===== -->
+  <section id="publications">
+    <div class="container">
+      <h2>Publications & Writing</h2>
+      <div class="card shadow" style="padding:14px">
+        <ul>
+          <li><strong>Title of Paper or Report</strong> — Journal/Conference, 2025. <a href="#">PDF</a></li>
+          <!-- <li><strong>Design Note: Low-Noise Current Sensing</strong> — Blog, 2024. <a href="#">Link</a></li> -->
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section id="contact">
+    <div class="container split">
+      <div>
+        <h2>Contact</h2>
+        <div class="card shadow" style="padding:14px">
+          <p>Email: <a href="dobie_5@mit.edu">you@example.com</a></p>
+          <p>GitHub: <a href="https://github.com/yourhandle">@yourhandle</a></p>
+          <p>LinkedIn: <a href="https://www.linkedin.com/in/isaac-dobie-349ab5276/">linkedin.com/in/yourhandle</a></p>
+        </div>
+      </div>
+      <div>
+        <h2>Résumé</h2>
+        <div class="card shadow" style="padding:14px">
+          <p>Place a <code>resume.pdf</code> in this repository and the button above will download it. Keep your résumé to 1 page and export as PDF.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div>&copy; <span id="year"></span> Isaac Dobie. Built with semantic HTML &amp; vanilla CSS. Minimal, fast, and accessible.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const body = document.body;
+    menuBtn?.addEventListener('click', () => {
+      const open = body.classList.toggle('menu-open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll for same-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          body.classList.remove('menu-open');
+          menuBtn?.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

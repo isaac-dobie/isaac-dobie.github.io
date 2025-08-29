@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Isaac Dobie | Candidate for B.S. in Mechanical Engineering at MIT</title>
+  <meta name="description" content="Mechanical engineering portfolio — projects, experience, and contact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff; --fg:#0f172a; --muted:#64748b; --card:#f8fafc; --accent:#0ea5e9; --hair:#e2e8f0;
+      --shadow: 0 10px 25px rgba(2,6,23,0.08);
+    }
+    [data-theme="dark"]{
+      --bg:#0b1020; --fg:#e5e7eb; --muted:#9aa3b2; --card:#11162a; --accent:#60a5fa; --hair:#1f2a44;
+      --shadow: 0 10px 25px rgba(0,0,0,0.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;border-radius:12px}
+
+    /* --- Layout --- */
+    .container{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
+    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);z-index:50;border-bottom:1px solid var(--hair);
+      background: var(--bg); /* fallback */
+      background: color-mix(in oklab, var(--bg), transparent 5%);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;max-width:1100px;margin:0 auto}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.2px}
+    .brand-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(14,165,233,0.15)}
+    .navlinks{display:flex;gap:18px;align-items:center}
+    .navlinks a{font-size:.95rem;color:var(--muted)}
+    .navlinks a:hover{color:var(--fg)}
+    .menu-btn{display:none}
+    .theme-toggle{border:1px solid var(--hair);padding:6px 10px;border-radius:10px;color:var(--muted)}
+
+    /* --- Hero --- */
+    .hero{display:grid;grid-template-columns:1.1fr 0.9fr;gap:32px;align-items:center;padding:48px 0}
+    .title{font-size:clamp(28px, 4vw, 44px);line-height:1.12;margin:0 0 10px}
+    .subtitle{font-size:clamp(16px, 2vw, 18px);color:var(--muted);margin:0 0 26px}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;font-weight:600;border:1px solid var(--hair);box-shadow:var(--shadow)}
+    .btn.primary{background:var(--fg);color:var(--bg);border-color:transparent}
+    .btn.ghost{background:var(--bg)}
+    .hero-card{background:var(--card);border:1px solid var(--hair);padding:18px;border-radius:16px;box-shadow:var(--shadow)}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .kpi{padding:14px;border-radius:12px;background:var(--bg);border:1px solid var(--hair)}
+    .kpi h4{margin:0;font-size:14px;color:var(--muted);font-weight:500}
+    .kpi p{margin:2px 0 0;font-weight:700}
+
+    /* --- Sections --- */
+    section{padding:42px 0;border-top:1px solid var(--hair)}
+    .section-h{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px}
+    .section-h h2{margin:0;font-size:22px}
+    .section-h p{margin:0;color:var(--muted);font-size:14px}
+
+    /* --- Projects Grid --- */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--card);border:1px solid var(--hair);padding:14px;border-radius:16px;transition:transform .2s ease, box-shadow .2s ease;cursor:pointer}
+    .card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;border:1px solid var(--hair);color:var(--muted);font-size:12px}
+    .card h3{margin:10px 0 8px;font-size:18px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+    .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--muted);font-size:12px}
+
+    /* --- Resume --- */
+    .resume{display:grid;grid-template-columns:1fr 2fr;gap:18px}
+    .resume h3{margin:.2rem 0}
+    .resume .item{padding:14px;border:1px solid var(--hair);border-radius:14px;background:var(--card)}
+    .pill{font-size:12px;color:var(--muted)}
+
+    /* --- Footer --- */
+    footer{border-top:1px solid var(--hair);padding:24px 20px;color:var(--muted)}
+
+    /* --- Media card visuals --- */
+    .media{position:relative;overflow:hidden;border-radius:12px;aspect-ratio:16/10;background:var(--hair)}
+    .media img,.media video{width:100%;height:100%;object-fit:cover;display:block}
+    .play-badge{position:absolute;inset:auto 10px 10px auto;background: var(--bg); /* fallback */
+      background: color-mix(in oklab, var(--bg), transparent 10%);
+      border:1px solid var(--hair);padding:6px 10px;border-radius:999px;font-size:12px}
+
+    /* --- Lightbox --- */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:24px;z-index:999}
+    .modal.open{display:flex}
+    .modal-content{max-width:min(1100px,95vw);max-height:85vh;background:var(--bg);border-radius:16px;overflow:hidden;border:1px solid var(--hair);box-shadow:var(--shadow)}
+    .modal-content video,.modal-content img{display:block;max-width:100%;max-height:85vh}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--hair);background:var(--card)}
+    .modal-header h4{margin:0;font-size:14px;color:var(--muted)}
+    .close-btn{border:1px solid var(--hair);background:transparent;border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--muted)}
+
+    /* --- Responsive --- */
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr;}
+      .hero-grid{grid-template-columns:1fr 1fr}
+      .grid{grid-template-columns:1fr 1fr}
+      .resume{grid-template-columns:1fr}
+    }
+    @media (max-width: 560px){
+      .navlinks{display:none}
+      .menu-btn{display:inline-flex;border:1px solid var(--hair);padding:6px 10px;border-radius:10px;color:var(--muted)}
+      .grid{grid-template-columns:1fr}
+      .hero-grid{grid-template-columns:1fr}
+    }
+
+    /*  */
+    .carousel {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        }
+
+    .carousel img {
+        width: 100%;
+        display: none;
+        }
+
+    .carousel img.active {
+        display: block;
+        }
+
+    .carousel .controls {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+        }
+
+    .carousel button {
+        background: rgba(0,0,0,0.5);
+        border: none;
+        color: white;
+        padding: 6px 10px;
+        border-radius: 50%;
+        cursor: pointer;
+}
+
+    /*  */
+
+  </style>
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header>
+    <nav class="nav">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Isaac Dobie · MIT MechE</span>
+      </a>
+      <div class="navlinks" role="navigation" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <button id="themeBtn" class="theme-toggle" aria-label="Toggle theme">Toggle</button>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">Menu</button>
+    </nav>
+  </header>
+
+  <main id="top" class="container">
+    <!-- Hero -->
+    <section class="hero" aria-label="Intro">
+      <div>
+        <h1 class="title">Mechanical Engineer — building reliable things with clean constraints.</h1>
+        <p class="subtitle">Selected work across product design, mechanisms, manufacturing, and controls. Straightforward, documented, and measurable.</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">View Projects</a>
+          <a class="btn ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-grid">
+          <div class="kpi"><h4>Fabrication</h4><p>CNC • FDM/SLA • Laser • Waterjet</p></div>
+          <div class="kpi"><h4>CAD/CAE</h4><p>Fusion 360 • SolidWorks • ANSYS</p></div>
+          <div class="kpi"><h4>Controls</h4><p>Arduino • PID • Sensors</p></div>
+          <div class="kpi"><h4>Docs</h4><p>DFM/DFA • Drawings • BOM</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="section-h">
+        <h2>Projects</h2>
+        <p>Concise one‑paragraph summaries, manufacturing notes, and metrics.</p>
+      </div>
+      <div class="grid" id="projectGrid"></div>
+    </section>
+
+    <!-- Experience / Resume -->
+    <section id="experience">
+      <div class="section-h">
+        <h2>Experience</h2>
+        <p>Reverse‑chronological — highlights only.</p>
+      </div>
+      <div class="resume">
+        <div>
+          <div class="item">
+            <h3>Mechanisms Intern · Company</h3>
+            <p class="pill">Jun–Sep 2025 · Los Angeles, CA</p>
+            <p>Owned redesign of a sector‑pinion drive; beam theory checks + nonlinear FEA; achieved −15% mass while meeting safety factors.</p>
+          </div>
+        </div>
+        <div>
+          <div class="item">
+            <h3>Robotics Team · Husky Rover</h3>
+            <p class="pill">2024–2025</p>
+            <p>5‑axis arm with modular science station; designed light but stiff truss chassis; integrated CAN bus; quick‑change end‑effector.</p>
+          </div>
+          <div class="item">
+            <h3>Product Design Projects</h3>
+            <p class="pill">Ongoing</p>
+            <p>DFM for sheet metal and injection parts, tolerance stacks, GD&T, supplier handoff packages with clear BoMs and revision control.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="section-h">
+        <h2>Skills</h2>
+        <p>Practical tools that ship parts and data.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>CAD/CAE</h3><p>SolidWorks, Fusion 360, CATIA (basics), ANSYS, nTopology (intro), FreeCAD</p></div>
+        <div class="card"><h3>Manufacturing</h3><p>2.5‑axis CNC, lathe, sheet metal, laser/waterjet, SLA/FDM/PA12 MJF, metrology</p></div>
+        <div class="card"><h3>EE/Controls</h3><p>Arduino, motor drivers, load cells, instrumentation, PID, simple state machines</p></div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="section-h"><h2>About</h2><p>Short and direct.</p></div>
+      <div class="card" style="padding:18px 18px">
+        <p>I like building precise things that are easy to service. My focus: mechanisms, manufacturable designs, and tight documentation. I enjoy test rigs, tolerance stacks, and turning lessons‑learned into checklists.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="section-h"><h2>Contact</h2><p>One email, one resume link.</p></div>
+      <div class="grid">
+        <div class="card">
+          <h3>Email</h3>
+          <p><a href="mailto:dobie_5@mit.edu">dobie_5@mit.edu</a></p>
+        </div>
+        <div class="card">
+          <h3>Resume</h3>
+          <p><a href="assets/resume.pdf" target="_blank" rel="noopener">Open PDF →</a></p>
+        </div>
+        <div class="card">
+          <h3>GitHub</h3>
+          <p><a href="https://github.com/" target="_blank" rel="noopener">github.com/your-handle</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="modalTitle"></h4>
+          <button id="closeModal" class="close-btn" aria-label="Close">Close</button>
+        </div>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="container" role="contentinfo">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+      <small>© <span id="y"></span> Isaac Dobie</small>
+      <div style="display:flex;gap:10px;align-items:center;color:var(--muted)">
+        <a href="#top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Run after DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      // Theme toggle (persist to localStorage)
+      const root = document.documentElement;
+      const btn = document.getElementById('themeBtn');
+      const setTheme = (t)=>{root.setAttribute('data-theme', t); localStorage.setItem('theme', t)};
+      const saved = localStorage.getItem('theme');
+      if(saved){setTheme(saved)}
+      btn?.addEventListener('click',()=>{setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark')});
+
+      // Mobile menu (simple jump menu)
+      const m = document.getElementById('menuBtn');
+      m?.addEventListener('click', ()=>{
+        const links = ['#projects','#experience','#skills','#about','#contact'];
+        const pick = prompt('Go to: projects / experience / skills / about / contact');
+        const match = links.find(x=>x.includes((pick||'').toLowerCase())); if(match) location.hash=match;
+      });
+
+      // --- Projects: edit this array with your own files in assets/ ---
+      const projects = [
+        {
+          tag:'Robotics',
+          title:'6‑Axis Robot Arm - Current',
+          summary:'Desktop-scale arm with .',
+          tools:'Fusion 360 • STM32 • PID',
+          media:{type:'image', src:'botarm2.jpg'},
+          link:'#'
+        },
+        {
+          tag:'Audio',
+          title:'Passive Speaker',
+          summary:'',
+          tools:'',
+          media:{type:'image', src:'assets/speaker/hero.jpg'},
+          link:'#'
+        },
+        {
+          tag:'Controls',
+          title:'Autonomous Line‑Following Robot',
+          summary:'',
+          tools:'Arduino • PID',
+          media:{type:'video', src:'assets/linebot/run.mp4', poster:'assets/linebot/cover.jpg'},
+          link:'#'
+        },
+        {
+          tag:'Competition',
+          title:'2.007 Design Competition Robot',
+          summary:'MIT 2.007 competition robot; ',
+          tools:'SolidWorks • Sheet Metal • CNC',
+          media:{type:'image', src:'007_bot.jpg'},
+          link:'#'
+        },
+        {
+          tag:'Manufacturing',
+          title:'DC Brushed Motor',
+          summary:'Hand‑wound ',
+          tools:'',
+          media:{type:'image', src:'motor.jpg'},
+          link:'#'
+        },
+        {
+          tag:'Design',
+          title:'Cargo Unloading Robot',
+          summary:'Kinematic linkage toy with snap‑fits; draft analysis, tolerance stack, and assembly drawing pack.',
+          tools:'Fusion 360 • Drawings',
+          media:{type:'video', src:'assets/2000a/hero.jpg'},
+          link:'#'
+        }
+      ];
+
+      const grid = document.getElementById('projectGrid');
+      const placeholder = 'data:image/svg+xml;charset=utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100"><rect width="160" height="100" fill="#e2e8f0"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#64748b" font-family="Inter, Arial" font-size="10">No media</text></svg>`);
+
+      function cardHTML(p, i){
+        const isVideo = p.media && p.media.type === 'video';
+        const src = p.media?.src || placeholder;
+        const poster = p.media?.poster || src;
+        const mediaEl = isVideo
+          ? `<div class="media"><img loading="lazy" src="${poster}" alt="${p.title} poster"><span class="play-badge">Play</span></div>`
+          : `<div class="media"><img loading="lazy" src="${src}" alt="${p.title}"></div>`;
+        return `
+          <article class="card" data-index="${i}" aria-label="Open ${p.title}">
+            ${mediaEl}
+            <span class="chip">${p.tag}</span>
+            <h3>${p.title}</h3>
+            <p>${p.summary}</p>
+            <div class="meta"><span>${p.tools}</span><a href="${p.link}">Details →</a></div>
+          </article>`;
+      }
+
+      function render(){ grid.innerHTML = projects.map(cardHTML).join(''); }
+      render();
+
+      // Lightbox interactions for videos/images
+      const modal = document.getElementById('lightbox');
+      const modalBody = document.getElementById('modalBody');
+      const modalTitle = document.getElementById('modalTitle');
+      document.addEventListener('click', (e)=>{
+        const card = e.target.closest('.card');
+        if(!card || !grid.contains(card)) return;
+        const idx = Number(card.dataset.index);
+        const p = projects[idx];
+        if(!p) return;
+        modalTitle.textContent = p.title;
+        if(p.media?.type==='video'){
+          modalBody.innerHTML = `<video src="${p.media.src}" controls preload="none" playsinline style="display:block;max-width:100%"></video>`;
+        } else {
+          const src = p.media?.src || placeholder;
+          modalBody.innerHTML = `<img src="${src}" alt="${p.title}">`;
+        }
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+      });
+      document.getElementById('closeModal').addEventListener('click', ()=>{
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
+        modalBody.innerHTML = '';
+      });
+      modal.addEventListener('click', (e)=>{ if(e.target===modal){ document.getElementById('closeModal').click(); } });
+
+      // year
+      document.getElementById('y').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
